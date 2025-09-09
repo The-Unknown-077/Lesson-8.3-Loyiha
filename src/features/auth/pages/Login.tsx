@@ -24,7 +24,7 @@ const Login = () => {
       }
     })
   };
-  // @ts-ignore
+
   const message = signIn.error?.response?.data?.message 
 
   const errorMessage =
