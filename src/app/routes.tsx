@@ -3,6 +3,9 @@ import { useRoutes } from "react-router-dom"
 import Statistics from "../features/statistics/pages/Statistics"
 import User from "../features/user/pages/User"
 import Product from "../features/product/pages/Product"
+import Otp from "../features/auth/pages/Otp"
+import Categories from "../features/product/pages/Categories"
+import Dashboard from "../features/product/pages/Dashboard"
 const DashboardLayout = lazy(()=> import("../layout/DashboardLayout"))
 const Auth = lazy(()=> import("../features/auth/pages/Auth"))
 const Register = lazy(()=> import("../features/auth/pages/Register"))
@@ -15,11 +18,15 @@ const AppRoutes = () => {
             {path: "/dashboard", element:<DashboardLayout/>, children: [
                 {index: true, element: <Statistics/>},
                 {path: "user", element: <User/>},
-                {path: "product", element: <Product/>}
+                {path: "product", element: <Product/>, children: [
+                    {index: true, element: <Dashboard/>},
+                    {path: "categories", element: <Categories/>}
+                ]}
             ]}
         ]},
         {path: "/login", element: <Login/>},
-        {path: "/register", element: <Register/>}
+        {path: "/register", element: <Register/>},
+        {path: "/otp", element: <Otp/>}
     ])
   )
 }

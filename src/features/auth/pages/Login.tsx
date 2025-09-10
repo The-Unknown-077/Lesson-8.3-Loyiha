@@ -4,7 +4,7 @@ import { Alert, Button, Form, Input } from "antd";
 import { useAuth } from "../service/useAuth";
 import { useDispatch } from "react-redux";
 import { setToken } from "../store/authSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 type FieldType = {
   email: string;
@@ -25,7 +25,7 @@ const Login = () => {
     })
   };
 
-  const message = signIn.error?.response?.data?.message 
+  const message = signIn.error?.response?.data?.message
 
   const errorMessage =
     typeof message === "string"
@@ -67,6 +67,8 @@ const Login = () => {
               Submit
             </Button>
           </Form.Item>
+          <Link to={"/register"}>Register</Link>
+
         </Form>
       </div>
     </div>

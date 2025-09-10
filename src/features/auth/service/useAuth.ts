@@ -1,11 +1,11 @@
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { api } from "../../../shared/api"
 
-export const userKey = "userKey"
+export const authKey = "userKey"
 
 export const useAuth = () => {
     const getUsers = () => useQuery<any, any>({
-        queryKey: [userKey],
+        queryKey: [authKey],
         queryFn: () => api.get("user").then(res => res.data)
     })
 
@@ -13,5 +13,23 @@ export const useAuth = () => {
         mutationFn: (body: { email: string, password: string }) => api.post("auth/signin", body).then(res => res.data),
     })
 
-    return { signIn, getUsers }
+    const signUp = useMutation<any, any, any>({
+        mutationFn: (body) => api.post("auth/signup", body).then((res) => res.data),
+    });
+
+    const confirmOtp = useMutation<
+        any,
+        any,
+        { otp: string; verificationKey: string; email: string }
+    >({
+        mutationFn: (body) =>
+            api.post("auth/confirm-otp", body).then((res) => res.data),
+    });
+
+    const sendNewOtp = useMutation<any, any, { email: string }>({
+        mutationFn: (body) =>
+            api.post("auth/new-opt", body).then((res) => res.data),
+    });
+
+    return { signIn, getUsers, signUp, confirmOtp, sendNewOtp }
 }
