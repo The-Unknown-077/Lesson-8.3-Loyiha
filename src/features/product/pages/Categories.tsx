@@ -1,5 +1,5 @@
 import { memo, useState } from "react";
-import { Button, Form, Input, Modal, Popconfirm, Space, Table} from "antd";
+import { Button, Form, Input, Modal, Popconfirm, Space, Table, Tooltip } from "antd";
 import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useCategory } from "../services/useCategory";
 
@@ -57,7 +57,20 @@ const Categories = () => {
         {
             title: "Category Name",
             dataIndex: "name",
-            render: (text: string) => <span className="font-semibold">{text}</span>,
+            render: (_: any, record: any) => (
+                <Tooltip
+                    title={
+                        <>
+                            <div><b>Foydalanuvchi:</b> {record?.user?.fname || "Unknown"}</div>
+                            <div><b>Email:</b> {record?.user?.email || "no email"}</div>
+                        </>
+                    }
+                >
+                    <span className="font-semibold cursor-pointer">
+                        {record?.name}
+                    </span>
+                </Tooltip>
+            ),
         },
         {
             title: "Action",
