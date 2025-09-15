@@ -9,6 +9,13 @@ export const useAuth = () => {
         queryFn: () => api.get("user").then(res => res.data)
     })
 
+    const getProfile = () =>
+        useQuery<any, any>({
+            queryKey: [authKey],
+            queryFn: () => api.get("auth/me").then((res) => res.data),
+            retry: 0
+        });
+
     const signIn = useMutation<any, any, { email: string, password: string }>({
         mutationFn: (body: { email: string, password: string }) => api.post("auth/signin", body).then(res => res.data),
     })
@@ -31,5 +38,5 @@ export const useAuth = () => {
             api.post("auth/new-opt", body).then((res) => res.data),
     });
 
-    return { signIn, getUsers, signUp, confirmOtp, sendNewOtp }
+    return { signIn, getUsers, signUp, confirmOtp, sendNewOtp, getProfile }
 }

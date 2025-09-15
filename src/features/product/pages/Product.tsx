@@ -17,7 +17,7 @@ const Product = () => {
                 <Tabs
                     activeKey={activeKey}
                     onChange={(key) =>
-                        navigate(key === "categories" ? "categories" : "/dashboard/product")
+                        navigate(key === "categories" ? "categories" : "/product")
                     }
                     items={[
                         { key: "product", label: "Products" },

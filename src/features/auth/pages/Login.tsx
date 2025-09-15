@@ -20,7 +20,7 @@ const Login = () => {
     signIn.mutate(values, {
       onSuccess: (res) => {
         dispatch(setToken(res.data))
-        navigate("/dashboard")
+        navigate("/")
       }
     })
   };

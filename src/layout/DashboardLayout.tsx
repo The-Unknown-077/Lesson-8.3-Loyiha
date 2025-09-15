@@ -1,13 +1,24 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import { Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import type { RootState } from '../app/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { useAuth } from '../features/auth/service/useAuth';
+import { removeToken } from '../features/auth/store/authSlice';
 
 
 const DashboardLayout = () => {
 
-  const user = useSelector((state: RootState) => state.auth.user);
+
+  const { getProfile } = useAuth()
+  const { isError, data } = getProfile()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (isError) {
+      dispatch(removeToken())
+    }
+  }, [isError])
+
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -21,7 +32,7 @@ const DashboardLayout = () => {
         <header className="bg-white shadow px-6 py-4 flex items-center justify-between">
           <h1 className="text-lg font-semibold text-gray-700">Dashboard</h1>
           <span className="text-sm text-gray-500">Welcome, <span className="font-medium text-gray-800">
-            {user?.name || "Guest"}
+            {data?.data?.fname || "Guest"}
           </span></span>
         </header>
 
