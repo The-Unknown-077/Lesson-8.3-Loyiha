@@ -1,7 +1,7 @@
 import { memo, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import { Outlet } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useAuth } from '../features/auth/service/useAuth';
 import { removeToken } from '../features/auth/store/authSlice';
 

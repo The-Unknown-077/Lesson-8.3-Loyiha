@@ -1,7 +1,6 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import { useAuth } from '../../auth/service/useAuth';
 import { Button } from 'antd';
-import UpdForm from '../components/UpdForm';
 
 const Profile = () => {
 
@@ -13,14 +12,13 @@ const Profile = () => {
 
     console.log(data?.data);
 
-    const [open, setOpen] = useState(false);
 
 
 
     return (
         <div className="Profile">
             <div className="">
-                <Button onClick={() => setOpen(true)}>Update</Button>
+                <Button>Update</Button>
 
                 {maplashga &&
                     <div key={maplashga.id}>
@@ -32,7 +30,6 @@ const Profile = () => {
                     </div>
                 }
 
-                <UpdForm open={open} setOpen={setOpen}/>
 
             </div>
         </div>
