@@ -18,10 +18,8 @@ const Dashboard = () => {
 
     const [open, setOpen] = useState(false);
 
-    // backenddan keladigan productlar
     const allProducts = productRes?.data?.allProducts || [];
 
-    // filter qilingan productlar
     const filteredProducts =
         category === "all"
             ? allProducts
@@ -32,7 +30,7 @@ const Dashboard = () => {
             title: "ID",
             dataIndex: "id",
             key: "id",
-            width: 50,
+            width: 70,
             render: (id: number) => (
                 <span className="font-mono font-semibold text-gray-700">{id}</span>
             ),
@@ -70,7 +68,7 @@ const Dashboard = () => {
                         </>
                     }
                 >
-                    <span className="font-semibold text-gray-800 cursor-pointer">
+                    <span className="font-semibold text-gray-800 cursor-pointer line-clamp-1" title={record.title}>
                         {record.title}
                     </span>
                 </Tooltip>
@@ -144,6 +142,7 @@ const Dashboard = () => {
         <>
             <Tabs
                 activeKey={category}
+                className='w-[940px]'
                 onChange={(key: any) => navigate(`?category=${key}`)}
                 items={[
                     { key: "all", label: "All" },
@@ -153,7 +152,6 @@ const Dashboard = () => {
                     })) || []),
                 ]}
             />
-
             <Button className="mb-[12px]" type="primary" onClick={() => setOpen(true)}>
                 Add Product
             </Button>
